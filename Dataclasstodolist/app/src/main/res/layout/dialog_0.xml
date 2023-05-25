@@ -31,27 +31,27 @@
         app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
     <Button
-        android:id="@+id/successButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="89dp"
-        android:text="Save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/closeButton"
-        app:layout_constraintTop_toBottomOf="@+id/priorityNumSpinner" />
-
-    <Button
         android:id="@+id/closeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="90dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="244dp"
         android:layout_marginEnd="56dp"
         android:text="Close"
         app:layout_constraintEnd_toStartOf="@+id/successButton"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priorityNumSpinner" />
+
+    <Button
+        android:id="@+id/successButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="89dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/closeButton"
         app:layout_constraintTop_toBottomOf="@+id/priorityNumSpinner" />
 
     <Spinner
@@ -63,5 +63,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTask" />
 
+    <DatePicker
+        android:id="@+id/closingDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="82dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priorityNumSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
