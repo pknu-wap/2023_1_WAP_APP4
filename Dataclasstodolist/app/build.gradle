@@ -34,10 +34,6 @@ android {
 }
 
 dependencies {
-    //implementation 'androidx.core:core-ktx:+'
-//    implementation 'androidx.core:core-ktx:+'
-//    implementation 'androidx.core:core-ktx:+' //오류로 인해 비활성화시킴.
-
     // Kotlin
     def nav_version = "2.5.3"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
