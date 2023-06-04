@@ -47,7 +47,6 @@ class ResultFragment : Fragment() {
             return selectedDate.isBefore(currentDate)
         }
 
-        // 클릭 이벤트 리스너 설정
         NewTask.setOnClickListener {
             // Dialog
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_0, null)
@@ -175,6 +174,17 @@ class ResultFragment : Fragment() {
                 completeTask(position)
             }
 
+            // 우선순위에 따라 배경색 변경
+            /*
+            when (item.priorityNum) {
+                1 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority1Color))
+                2 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority2Color))
+                3 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority3Color))
+                4 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority4Color))
+                5 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority5Color))
+            }
+            */
+
             return view
         }
 
@@ -222,11 +232,37 @@ class ResultFragment : Fragment() {
 
             val okButton = dialogView.findViewById<Button>(R.id.successButton)
             val alertDialog = dialogBuilder.create()
+            okButton.isEnabled = !(titleEditText.text.isNullOrBlank() || isClosingDateBeforeToday(closingDatePicker))
+
+            val textWatcher = object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // 제목과 날짜 값이 모두 채워져 있으면 버튼을 활성화, 그렇지 않으면 비활성화
+                    val isTitleEmpty = titleEditText.text.isNullOrBlank()
+                    val isDateBeforeToday = isClosingDateBeforeToday(closingDatePicker)
+                    okButton.isEnabled = !(isTitleEmpty || isDateBeforeToday)
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            }
+
+            titleEditText.addTextChangedListener(textWatcher)
+            closingDatePicker.init(closingDatePicker.year, closingDatePicker.month, closingDatePicker.dayOfMonth) { _, _, _, _ ->
+                // 날짜 선택이 변경될 때마다 호출되어 버튼 활성화 여부를 업데이트
+                val isTitleEmpty = titleEditText.text.isNullOrBlank()
+                val isDateBeforeToday = isClosingDateBeforeToday(closingDatePicker)
+                okButton.isEnabled = !(isTitleEmpty || isDateBeforeToday)
+            }
+
             okButton.setOnClickListener {
+
+
                 // 수정된 내용 적용
                 val editedTitle = titleEditText.text.toString()
                 val editedTask = taskEditText.text.toString()
                 val editedPriorityNum = priorityNumSpinner.selectedItem.toString().toInt()
+
                 //수정된 날짜 적용
                 val editedClosingDateYear = closingDatePicker.year
                 val editedClosingDateMonth = closingDatePicker.month
@@ -241,7 +277,7 @@ class ResultFragment : Fragment() {
                 item.closingDateDay = editedClosingDateDay
                 item.closingDate = ("$editedClosingDateYear - ${editedClosingDateMonth + 1} - ${editedClosingDateDay}")
 
-                // todoList를 날짜와 우선순위에 따라 소팅
+                // todoList를 날짜와 우선순위에 따라 정렬
                 todoList.sortWith(compareBy({it.closingDateYear}, {it.closingDateMonth}, {it.closingDateDay}, {it.priorityNum}))
 
                 // 데이터 갱신
@@ -257,17 +293,24 @@ class ResultFragment : Fragment() {
             noButton.setOnClickListener {
                 alertDialog.dismiss()
             }
+
+            alertDialog.show()
+        }
+
+        private fun isClosingDateBeforeToday(datePicker: DatePicker): Boolean {
+            val currentDate = LocalDate.now()
+            val selectedDate = LocalDate.of(datePicker.year, datePicker.month + 1, datePicker.dayOfMonth)
+            return selectedDate.isBefore(currentDate)
         }
 
         private fun deleteItem(position: Int) {
             val item = todoList[position]
 
-            // 삭제 확인 팝업 띄우기
+            // 삭제 확인 팝업
             val alertDialogBuilder = AlertDialog.Builder(context)
             alertDialogBuilder.setTitle("삭제 확인")
             alertDialogBuilder.setMessage("할 일을 삭제하시겠습니까?")
             alertDialogBuilder.setPositiveButton("예") { dialog, which ->
-                // 사용자가 확인을 선택한 경우
                 todoList.removeAt(position)
                 notifyDataSetChanged()
                 Toast.makeText(context, "할 일이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
