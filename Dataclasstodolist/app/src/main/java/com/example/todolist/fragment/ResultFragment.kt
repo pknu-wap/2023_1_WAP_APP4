@@ -157,6 +157,8 @@ class ResultFragment : Fragment() {
             val dateView = view.findViewById<TextView>(R.id.dateView)
             dateView.text = item.closingDate
 
+            val colorTag = view.findViewById<View>(R.id.colorTag)
+
             // 현재 날짜 가져오기
             val currentDate = LocalDate.now()
 
@@ -175,15 +177,13 @@ class ResultFragment : Fragment() {
             }
 
             // 우선순위에 따라 배경색 변경
-            /*
             when (item.priorityNum) {
-                1 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority1Color))
-                2 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority2Color))
-                3 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority3Color))
-                4 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority4Color))
-                5 -> view.setBackgroundColor(ContextCompat.getColor(context, R.color.priority5Color))
+                1 -> colorTag.setBackgroundColor(ContextCompat.getColor(context, R.color.priority1Color))
+                2 -> colorTag.setBackgroundColor(ContextCompat.getColor(context, R.color.priority2Color))
+                3 -> colorTag.setBackgroundColor(ContextCompat.getColor(context, R.color.priority3Color))
+                4 -> colorTag.setBackgroundColor(ContextCompat.getColor(context, R.color.priority4Color))
+                5 -> colorTag.setBackgroundColor(ContextCompat.getColor(context, R.color.priority5Color))
             }
-            */
 
             return view
         }
@@ -257,7 +257,6 @@ class ResultFragment : Fragment() {
 
             okButton.setOnClickListener {
 
-
                 // 수정된 내용 적용
                 val editedTitle = titleEditText.text.toString()
                 val editedTask = taskEditText.text.toString()
@@ -293,7 +292,6 @@ class ResultFragment : Fragment() {
             noButton.setOnClickListener {
                 alertDialog.dismiss()
             }
-
             alertDialog.show()
         }
 
