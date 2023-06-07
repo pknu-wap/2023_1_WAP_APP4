@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainConstraintLayer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF03DAC5"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/charView"
+            android:layout_width="39dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/png_ggam" />
+
+        <LinearLayout
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="79dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/failText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="failText" />
+
+            <ProgressBar
+                android:id="@+id/expBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="36dp" />
+
+            <TextView
+                android:id="@+id/expText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="expText" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+</LinearLayout>
