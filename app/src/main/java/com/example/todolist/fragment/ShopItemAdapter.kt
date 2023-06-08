@@ -5,15 +5,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 
 class ShopItemAdapter(private val ShopItemList:ArrayList<ShopItemData>) :
     RecyclerView.Adapter<ShopItemAdapter.ShopItemViewHolder>(){
 
+    var onItemClick: ((ShopItemData) -> Unit)? = null
+
     class ShopItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
         val imageView : ImageView = itemView.findViewById(R.id.imageView)
         val textView : TextView = itemView.findViewById(R.id.textView3)
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
@@ -30,5 +36,10 @@ class ShopItemAdapter(private val ShopItemList:ArrayList<ShopItemData>) :
         holder.imageView.setImageResource(shopItemData.image)
         holder.textView.text = shopItemData.name
         //만약 작동 안하면 shopItemData 첫글자 대문자로 바꾸기. 뒤에 언급된 두개도.
+
+        holder.itemView.setOnClickListener{
+            onItemClick?.invoke(shopItemData)
+
+        }
     }
 }

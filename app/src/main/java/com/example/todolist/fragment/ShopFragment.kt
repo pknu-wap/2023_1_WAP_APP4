@@ -28,37 +28,12 @@ class ShopFragment : Fragment() {
         ShopItemList = ArrayList()
         addDataToList()
 
-
         ShopItemAdapter = ShopItemAdapter(ShopItemList) //오류 있으면 같은 이름 다른 ShopItemList 로 바꿔보기
         recyclerView.adapter = ShopItemAdapter //여기도 마찬가지.
 
-        //여기부터 boolean시작
-
-        val testDialogButton = view.findViewById<Button>(R.id.cardview)
-
-        testDialogButton.setOnClickListener {
-
-            // Dialog 만들기
-            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_yn, null)
-            val dialogBuilder = AlertDialog.Builder(requireContext())
-                .setView(dialogView)
-                .setTitle("Login Form")
-
-            val alertDialog = dialogBuilder.show()
-
-            val okButton = dialogView.findViewById<Button>(R.id.successButton1)
-            okButton.setOnClickListener {
-
-                Toast.makeText(requireContext(), "토스트 메시지", Toast.LENGTH_SHORT).show()
-            }
-
-            val noButton = dialogView.findViewById<Button>(R.id.closeButton1)
-            noButton.setOnClickListener {
-                alertDialog.dismiss()
-            }
+        ShopItemAdapter.onItemClick = {
+            Toast.makeText(view?.context, "abcd", Toast.LENGTH_SHORT).show() // toast 실험
         }
-        
-        //여기가 boolean끝
 
 
         return view
@@ -66,17 +41,11 @@ class ShopFragment : Fragment() {
         
     }
     private fun addDataToList(){
-        ShopItemList.add(ShopItemData(R.drawable.itm_chair, "chair"))
-        ShopItemList.add(ShopItemData(R.drawable.itm_armchair, "armchair"))
-        ShopItemList.add(ShopItemData(R.drawable.itm_comfort_chair, "comfort chair"))
-        ShopItemList.add(ShopItemData(R.drawable.itm_disabled_chair, "disabled chair"))
-        ShopItemList.add(ShopItemData(R.drawable.itm_yellow_chair, "yellow chair"))
-
-        ShopItemList.add(ShopItemData(R.drawable.itm_chair, "chair"))
-        ShopItemList.add(ShopItemData(R.drawable.itm_armchair, "armchair"))
-        ShopItemList.add(ShopItemData(R.drawable.itm_comfort_chair, "comfort chair"))
-        ShopItemList.add(ShopItemData(R.drawable.itm_disabled_chair, "disabled chair"))
-        ShopItemList.add(ShopItemData(R.drawable.itm_yellow_chair, "yellow chair"))
+        ShopItemList.add(ShopItemData(R.drawable.itm_chair, "chair", 0,100))
+        ShopItemList.add(ShopItemData(R.drawable.itm_armchair, "armchair",0,100))
+        ShopItemList.add(ShopItemData(R.drawable.itm_comfort_chair, "comfort chair",0,100))
+        ShopItemList.add(ShopItemData(R.drawable.itm_disabled_chair, "disabled chair",0,200))
+        ShopItemList.add(ShopItemData(R.drawable.itm_yellow_chair, "yellow chair",0,200))
 
 
     }
